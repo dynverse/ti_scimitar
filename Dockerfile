@@ -1,6 +1,6 @@
 FROM dynverse/dynwrap:py2.7
 
-LABEL version 0.1.0.1
+LABEL version 0.1.0
 
 # install R before rpy2
 RUN apt-get update && apt-get install -y r-base
@@ -14,4 +14,4 @@ RUN pip install git+https://github.com/dimenwarper/scimitar
 RUN R -e "install.packages('corpcor', repos = 'http://cran.us.r-project.org')"
 
 ADD . /code
-ENTRYPOINT /code/run.sh
+ENTRYPOINT python /code/run.py

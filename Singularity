@@ -8,9 +8,10 @@ Bootstrap: shub
 From: dynverse/dynwrap:py2.7
 
 %labels
-    version 0.1.0
+    version 0.1.1
 
 %post
+    chmod -R a+r /code
     apt-get update && apt-get install -y r-base
     pip install rpy2==2.8
     pip install munkres

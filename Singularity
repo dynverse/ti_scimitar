@@ -12,6 +12,7 @@ From: dynverse/dynwrap:py2.7
 
 %post
     chmod -R a+r /code
+    chmod a+x /code
     apt-get update && apt-get install -y r-base
     pip install rpy2==2.8
     pip install munkres

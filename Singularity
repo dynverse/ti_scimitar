@@ -10,18 +10,17 @@ From: dynverse/dynwrap:py2.7
 %labels
     version 0.1.1
 
+%files
+    . /code
+
 %post
-    chmod -R a+r /code
-    chmod a+x /code
+    chmod -R 755 '/code'
     apt-get update && apt-get install -y r-base
     pip install rpy2==2.8
     pip install munkres
     pip install git+https://github.com/dimenwarper/pyroconductor
     pip install git+https://github.com/dimenwarper/scimitar
     R -e "install.packages('corpcor', repos = 'http://cran.us.r-project.org')"
-
-%files
-    . /code
 
 %runscript
     exec python /code/run.py

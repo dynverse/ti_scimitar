@@ -1,5 +1,6 @@
 id: scimitar
 docker_repository: dynverse/ti_scimitar
+singularity_collection: 1574
 container_url: https://github.com/dynverse/ti_scimitar
 name: SCIMITAR
 type: algorithm

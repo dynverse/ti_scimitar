@@ -11,7 +11,7 @@ RUN pip install git+https://github.com/dimenwarper/scimitar
 # install R dependencies
 RUN R -e "install.packages('corpcor', repos = 'http://cran.us.r-project.org')"
 
-LABEL version 0.1.2
+LABEL version 0.1.4
 
 ADD . /code
 ENTRYPOINT python /code/run.py

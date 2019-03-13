@@ -1,6 +1,7 @@
-# to avoid singularity loading the home directory python libraries
-import sys
-sys.path = ['/usr/local/lib/python2.7', '/usr/local/lib/python2.7/site-packages', '/usr/local/lib/python2.7/lib-old', '/usr/local/lib/python2.7/lib-dynload']
+#!/usr/local/bin/python
+
+import dynclipy
+task = dynclipy.main()
 
 import pandas as pd
 import json
@@ -13,8 +14,8 @@ checkpoints = {}
 
 #   ____________________________________________________________________________
 #   Load data                                                               ####
-expression = pd.read_csv("/ti/input/expression.csv", index_col=[0])
-p = json.load(open("/ti/input/params.json", "r"))
+expression = task["expression"]
+p = task["params"]
 
 checkpoints["method_afterpreproc"] = time.time()
 
@@ -41,16 +42,13 @@ checkpoints["method_aftermethod"] = time.time()
 
 #   ____________________________________________________________________________
 #   Save output                                                             ####
-cell_ids = pd.DataFrame({
-  "cell_ids": expression.index
-})
-cell_ids.to_csv("/ti/output/cell_ids.csv", index=False)
-
 pseudotime = pd.DataFrame({
   "cell_id": expression.index,
   "pseudotime": refined_pseudotimes
 })
-pseudotime.to_csv("/ti/output/pseudotime.csv", index=False)
 
-# timings
-json.dump(checkpoints, open("/ti/output/timings.json", "w"))
+model = dynclipy.wrap_data(cell_ids = expression.index)
+model.add_linear_trajectory(pseudotime = pseudotime)
+model.add_timings(checkpoints)
+
+model.write_output(task["output"])

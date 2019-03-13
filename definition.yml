@@ -1,68 +1,78 @@
-id: scimitar
-docker_repository: dynverse/ti_scimitar
-singularity_collection: 1574
-container_url: https://github.com/dynverse/ti_scimitar
-name: SCIMITAR
-source: tool
-platform: Python
+method:
+  id: scimitar
+  name: SCIMITAR
+  tool_id: scimitar
+  source: tool
+  platform: Python
+  url: https://github.com/dimenwarper/scimitar
+  authors:
+  - given: Josh
+    family: Stuart
+    email: stuart@soe.ucsc.edu
+    github: dimenwarper
+
+manuscript:
+  doi: 10.1142/9789813207813_0053
+  google_scholar_cluster_id: '9521617617243964284'
+  preprint_date: '2016-10-04'
+  publication_date: '2017-01-04'
+
+container:
+  url: https://github.com/dynverse/ti_scimitar
+  docker: dynverse/ti_scimitar
+
+wrapper:
+  type: linear_trajectory
+  topology_inference: fixed
+  trajectory_types:
+  - linear
+  example: /code/example.R
+  input_required:
+  - expression
+
 parameters:
-  covariance_type:
-    type: discrete
+  - id: covariance_type
+    type: character
     values:
     - diag
     - spherical
     - full
     default: diag
-  degree:
+  - id: degree
     type: integer
-    lower: 1
-    upper: 20
+    distribution:
+      type: uniform
+      lower: 1
+      upper: 20
     default: 3
-  step_size:
+  - id: step_size
     type: numeric
-    lower: 0.01
-    upper: 0.1
+    distribution:
+      type: expuniform
+      lower: 0.01
+      upper: 0.1
     default: 0.07
-  cov_estimator:
-    type: discrete
+  - id: cov_estimator
+    type: character
     values:
     - identity
     - diag
     - sample
     - global
     - glasso
-    - corpcor
     - average
-    default: corpcor
-  cov_reg:
+    default: identity
+  - id: cov_reg
     type: numeric
-    lower: 0.01
-    upper: 0.1
+    distribution:
+      type: expuniform
+      lower: 0.01
+      upper: 0.1
     default: 0.05
-  max_iter:
+  - id: max_iter
     type: integer
-    lower: 1
-    upper: 20
+    distribution:
+      type: uniform
+      lower: 1
+      upper: 20
     default: 3
-input:
-  format: text
-  required: expression
-output:
-  format: text
-  outputs:
-  - linear_trajectory
-  - timings
-wrapper_type: linear_trajectory
-doi: 10.1142/9789813207813_0053
-google_scholar_cluster_id: '9521617617243964284'
-trajectory_types:
-- linear
-topology_inference: fixed
-authors:
-- given: Josh
-  family: Stuart
-  email: stuart@soe.ucsc.edu
-  github: dimenwarper
-preprint_date: '2016-10-04'
-publication_date: '2017-01-04'
-code_url: https://github.com/dimenwarper/scimitar

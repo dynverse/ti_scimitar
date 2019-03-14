@@ -1,5 +1,7 @@
 FROM dynverse/dynwrappy:v0.1.0
 
+ARG GITHUB_PAT
+
 RUN pip install munkres
 RUN pip install git+https://github.com/dimenwarper/pyroconductor
 RUN pip install git+https://github.com/dynverse/SCIMITAR.git

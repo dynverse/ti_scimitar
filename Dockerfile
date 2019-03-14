@@ -7,6 +7,6 @@ RUN pip install git+https://github.com/dynverse/SCIMITAR.git
 # install R dependencies
 RUN R -e "install.packages('corpcor', repos = 'http://cran.us.r-project.org')"
 
-COPY definition.yml run.py example.h5 /code/
+COPY definition.yml run.py example.sh /code/
 
 ENTRYPOINT ["/code/run.py"]

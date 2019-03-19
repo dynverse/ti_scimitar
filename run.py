@@ -15,7 +15,7 @@ checkpoints = {}
 #   ____________________________________________________________________________
 #   Load data                                                               ####
 expression = task["expression"]
-p = task["params"]
+p = task["parameters"]
 
 checkpoints["method_afterpreproc"] = time.time()
 

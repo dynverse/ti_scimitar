@@ -1,17 +1,14 @@
-FROM dynverse/dynwrap:py2.7
+FROM dynverse/dynwrappy:v0.1.0
 
-# install R before rpy2
-RUN apt-get update && apt-get install -y r-base
+ARG GITHUB_PAT
 
-RUN pip install rpy2==2.8
 RUN pip install munkres
 RUN pip install git+https://github.com/dimenwarper/pyroconductor
-RUN pip install git+https://github.com/dimenwarper/scimitar
+RUN pip install git+https://github.com/dynverse/SCIMITAR.git
 
 # install R dependencies
 RUN R -e "install.packages('corpcor', repos = 'http://cran.us.r-project.org')"
 
-LABEL version 0.1.4
+COPY definition.yml run.py example.sh /code/
 
-ADD . /code
-ENTRYPOINT python /code/run.py
+ENTRYPOINT ["/code/run.py"]
